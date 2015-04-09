@@ -1,0 +1,22 @@
+      
+        <tr ng-repeat-start="record in searchResults track by $index" ng-show="! searchui.loadingInProgress()" ng-init="record.show_response = 1">                    
+            <td class="time">{{ ::record['@timestamp'] | wt_date }} </td>
+            <td>
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.request }}" display="{{ ::record.request | characters:30 }}" field="request"></pivot-menu>
+            </td>
+            <td>                
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.referer }}" display="{{ ::record.referer | characters:30 }}" field="referer"></pivot-menu>
+            </td>
+            <td>
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.host }}" display="{{ ::record.host | characters:30 }}" field="host"></pivot-menu>                    
+            </td>            
+        </tr>
+
+        <tr ng-repeat-end ng-show="! searchui.loadingInProgress()" ng-if="::record.rcode != 3">                    
+            <td colspan="7">                       
+                <div class="row-fluid" >                                                
+                    
+                </div>                                   
+            </td>
+        </tr>
+    
