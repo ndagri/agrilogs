@@ -8,7 +8,7 @@ var api = {
     config: function(config) {
         this._config = config;
         logger = config.logger;
-        client = config.client;
+        client = config.elasticsearch;
     },
 
     init: function() {
@@ -19,14 +19,25 @@ var api = {
     },
 
     routes: function() {
-        this._config.app.get(this._config.url_base, function(req, res) {
-            res.redirect(config.url_base + '/_'); // redirecting to a path handled by /* path below
+        var url_base = this._config.url_base;
+        var path = this._config.path;
+
+        var index = function(req, res) {
+            res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+            res.header("Pragma", "no-cache");
+            res.header("X-Frame-Options", "Deny");
+            
+            res.sendfile('index.html', {root: path + '/static'});
+        }
+
+        this._config.app.get(url_base, function(req, res) {
+            res.redirect(url_base + '/_'); // redirecting to a path handled by /* path below
         });
 
-        this._config.app.get(this._config.url_base + '/', index);
-        this._config.app.get(this._config.url_base + '/*', index);
+        this._config.app.get(url_base + '/', index);
+        this._config.app.get(url_base + '/*', index);
                 
-        this._config.app.get(this._config.url_base + '/config', function(req, res) {
+        this._config.app.get(url_base + '/config', function(req, res) {
             // TODO: this isn't correct.
             fs.readFile('/wtconfig/webui.conf', { encoding: 'utf-8' }, function (err, data) {
                 if (err) {
@@ -57,13 +68,6 @@ var api = {
 module.exports = api;
 
     
-    var index = function(req, res) {
-        res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-        res.header("Pragma", "no-cache");
-        res.header("X-Frame-Options", "Deny");
-        
-        res.sendfile('index.html', {root: config.path + '/static'});
-    }
 
 
     function performSearch(context, req, res, config) {
