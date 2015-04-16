@@ -12,18 +12,18 @@ function ($scope, appModuleBase) {
             sortable: true            
         },
         {
-            name: 'request',
-            human_name: 'Request',
+            name: 'name',
+            human_name: 'Name',
             header: true
         },
         {
-            name: 'referer',
-            human_name: 'Referer',
+            name: 'hostname',
+            human_name: 'Hostname',
             header: true
         },
         {
-            name: 'host',
-            human_name: 'Host',
+            name: 'message',
+            human_name: 'Message',
             header: true
         }
     ];

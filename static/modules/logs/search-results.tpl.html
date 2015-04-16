@@ -2,13 +2,13 @@
         <tr ng-repeat-start="record in searchResults track by $index" ng-show="! searchui.loadingInProgress()" ng-init="record.show_response = 1">                    
             <td class="time">{{ ::record['@timestamp'] | wt_date }} </td>
             <td>
-                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.request }}" display="{{ ::record.request | characters:30 }}" field="request"></pivot-menu>
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.name }}" display="{{ ::record.name | characters:30 }}" field="name"></pivot-menu>
             </td>
             <td>                
-                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.referer }}" display="{{ ::record.referer | characters:30 }}" field="referer"></pivot-menu>
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.hostname }}" display="{{ ::record.hostname | characters:30 }}" field="hostname"></pivot-menu>
             </td>
             <td>
-                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.host }}" display="{{ ::record.host | characters:30 }}" field="host"></pivot-menu>                    
+                <pivot-menu context="logs" criteria="{{ ::search.criteria }}" value="{{ ::record.message }}" display="{{ ::record.message | characters:100 }}" field="message"></pivot-menu>                    
             </td>            
         </tr>
 
