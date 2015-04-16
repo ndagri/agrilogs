@@ -11,6 +11,10 @@ var api = {
         client = config.elasticsearch;
     },
 
+    static: function() {
+        return __dirname + '/static';
+    },
+
     init: function() {
     },
 
@@ -20,13 +24,13 @@ var api = {
 
     routes: function() {
         var url_base = this._config.url_base;
-        var path = this._config.path;
+        var path = __dirname;
 
         var index = function(req, res) {
             res.header("Cache-Control", "no-cache, no-store, must-revalidate");
             res.header("Pragma", "no-cache");
             res.header("X-Frame-Options", "Deny");
-            
+
             res.sendfile('index.html', {root: path + '/static'});
         }
 
@@ -36,7 +40,7 @@ var api = {
 
         this._config.app.get(url_base + '/', index);
         this._config.app.get(url_base + '/*', index);
-                
+
         this._config.app.get(url_base + '/config', function(req, res) {
             // TODO: this isn't correct.
             fs.readFile('/wtconfig/webui.conf', { encoding: 'utf-8' }, function (err, data) {
@@ -44,16 +48,16 @@ var api = {
                     res.send(500, 'Could not load configuration: ' + err);
                     return;
                 }
-                
-                res.json(JSON.parse(data)); 
-            });    
+
+                res.json(JSON.parse(data));
+            });
         });
 
         // TODO: this may not be a clean namespace
         this._config.app.use('/api/v1/logstash', function(req, res) {
             detailQuery(req, res, 'logstash-*', {
-                sort_enabled: true, 
-                sort_default: false, 
+                sort_enabled: true,
+                sort_default: false,
                 sort_dates_only: false,
                 date_range: '@timestamp'
             });
@@ -67,7 +71,7 @@ var api = {
 
 module.exports = api;
 
-    
+
 
 
     function performSearch(context, req, res, config) {
@@ -83,14 +87,14 @@ module.exports = api;
                     'filtered': {
                         'filter': {
                             'bool': {
-                                'must': [ 
-                                                 
+                                'must': [
+
                                 ]
                             }
                         }
-                    } 
+                    }
                 }
-            }            
+            }
         }
 
         if (config.query) {
@@ -105,25 +109,25 @@ module.exports = api;
             if (! validateDateRange(res, req.query.date_start, req.query.date_end)) {
                 return;
             }
-            
+
             var dateContext = prepareDateRange(config.date_range, req.query.date_start, req.query.date_end)
             if (dateContext) {
                 context.body.query.filtered.filter.bool.must.push(dateContext);
             }
         }
 
-        context.size = 100;        
+        context.size = 100;
         if (req.query.size) {
             context.size = req.query.size;
         }
 
         if (req.query.start) {
             context.from = req.query.start;
-        }  
+        }
 
         // Parameter to retrieve a particular type of record
         // TODO: validate incoming type
-        if (req.query.type) {     
+        if (req.query.type) {
             context.body.query.filtered.filter.bool.must.push({
                 'term': {
                     'type': req.query.type
@@ -133,10 +137,10 @@ module.exports = api;
 
         // See if we should include a default sort
         if (config.sort_default) {
-            context.sort = 'date:desc'             
+            context.sort = 'date:desc'
         }
 
-        if (config.sort_enabled && req.query.sort) {            
+        if (config.sort_enabled && req.query.sort) {
             // split the value and verify
             var pieces = req.query.sort.split(':')
             if (config.sort_dates_only && pieces[0].toLowerCase() !== 'date') {
@@ -150,12 +154,12 @@ module.exports = api;
             }
 
             context.sort = req.query.sort;
-        }    
+        }
 
         client.search(context, function (error, response) {
             if (error || (response && response.error)) {
                 if (error) {
-                    logger.error("Search error " + error);    
+                    logger.error("Search error " + error);
                 }
                 else {
                     logger.error("Search response error " + response.error);
@@ -173,22 +177,22 @@ module.exports = api;
 
                 var message = response.hits.total + " results found.";
                 if (response.hits.total > context.size) {
-                    message += " Returning " + context.size + "."                    
+                    message += " Returning " + context.size + "."
                 }
 
-                if (! config.sort_enabled && req.query.sort) { 
+                if (! config.sort_enabled && req.query.sort) {
                     message += " No sorting available."
                 }
 
                 res.json({
                     info: message,
                     results: results
-                });    
-            } 
+                });
+            }
             else {
                 res.json(500, { error: 'No results returned from query.' });
-            }           
-        });         
+            }
+        });
     }
 
     function detailQuery(req, res, index, config) {
@@ -203,7 +207,7 @@ module.exports = api;
             res.json(500, { error: "Wild card queries of the form 'fieldname:*value' or 'fieldname:?value' can not be evaluated. Please refer to the documentation on 'fieldname.right'."})
             return;
         }
-        
+
         config.filtered_query = {
             "query_string" : {
                 "default_field" : "",
@@ -212,8 +216,8 @@ module.exports = api;
         };
 
         performSearch({
-            index: index,   
-            ignoreUnavailable: true         
+            index: index,
+            ignoreUnavailable: true
         }, req, res, config);
     }
 
@@ -231,26 +235,26 @@ module.exports = api;
     /*
      * Generates a list of indexes to search based off the API history parameters.
      */
-    function indexHistory(days, start) {        
+    function indexHistory(days, start) {
         var result = "";
 
         for (var i = start; i < (start + days); i++) {
             var date = new Date();
             date.setDate(date.getDate() - i)
-            
+
             if (result) {
-                result += ',detail-' + indexing.formatIndexDate(date);    
+                result += ',detail-' + indexing.formatIndexDate(date);
             }
             else {
-                result = 'detail-' + indexing.formatIndexDate(date);        
+                result = 'detail-' + indexing.formatIndexDate(date);
             }
-            
+
         }
 
         return result;
     }
 
-   
+
     function validateDateRange(res, date_start, date_end) {
         var message = "";
 
@@ -264,7 +268,7 @@ module.exports = api;
         if (date_end) {
             date_end = Date.parse(date_end);
             if (Number.isNaN(date_end)) {
-                message = "date_end is not a valid ISO 8601 date";   
+                message = "date_end is not a valid ISO 8601 date";
             }
         }
 
@@ -273,7 +277,7 @@ module.exports = api;
                 message = "date_end is before date_start";
             }
         }
-        else if (! message) {                
+        else if (! message) {
             if (date_end && ! date_start) {
                 message = "date_end provided without a corresponding date_start";
             }
@@ -289,10 +293,10 @@ module.exports = api;
     }
 
     function prepareDateRange(date_field, date_start, date_end) {
-        var query = { 
-            "range" : {                
+        var query = {
+            "range" : {
             }
-        };        
+        };
 
         query.range[date_field] = {};
 
@@ -304,7 +308,7 @@ module.exports = api;
         }
         else if (date_start) {
             query.range[date_field].gte = date_start;
-        
+
             return query;
         }
 
