@@ -1,24 +1,24 @@
 'use strict';
 
 var config = angular.module('app.config', [])
-    .constant('appTitle', 'Log Explorer')    
+    .constant('appTitle', 'Log Scope')    
     
-    .constant('appModuleBase', '/pl/agrilogs/static/modules/')    
+    .constant('appModuleBase', '/pl/logscope/static/modules/')    
 
-    .constant('agrinautModuleBase', '/pl/agrinaut/static/modules/')
+    .constant('teranautModuleBase', '/pl/teranaut/static/modules/')
 
-    .constant('agrinautAdminUserRoles', ['admin', 'user', 'domains-user'])
+    .constant('teranautAdminUserRoles', ['admin', 'user', 'domains-user'])
 
 // Declare app level module which depends on filters, and services
 var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
-        'agrinaut.util', 'agrinaut.account', 'agrinaut.search', 'agrinaut.admin.users', 'agrinaut.admin.nodes',
-        'agrilogs.logs', 'app.config'
+        'teranaut.util', 'teranaut.account', 'teranaut.search', 'teranaut.admin.users', 'teranaut.admin.nodes',
+        'logscope.logs', 'app.config'
         ])
 
     .value('version', '0.1') // Application version 
     
-    .config(['$routeProvider', '$locationProvider', '$httpProvider', 'appModuleBase', 'agrinautModuleBase',
-        function($routeProvider, $locationProvider, $httpProvider, appModuleBase, agrinautModuleBase) {        
+    .config(['$routeProvider', '$locationProvider', '$httpProvider', 'appModuleBase', 'teranautModuleBase',
+        function($routeProvider, $locationProvider, $httpProvider, appModuleBase, teranautModuleBase) {        
             
             $routeProvider.
                 when('/', {
@@ -27,7 +27,7 @@ var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
                     //,reloadOnSearch: false
                 }).                
                 when('/search/logs/', {
-                    templateUrl: agrinautModuleBase + '/search/grid.tpl.html',
+                    templateUrl: teranautModuleBase + '/search/grid.tpl.html',
                     controller: 'LogsSearchController'
                     //,
                     //reloadOnSearch: false

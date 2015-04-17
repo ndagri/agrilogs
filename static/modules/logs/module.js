@@ -1,4 +1,4 @@
-angular.module('agrilogs.logs', ['app.config', 'agrinaut.data.elasticsearch'])
+angular.module('logscope.logs', ['app.config', 'teranaut.data.elasticsearch'])
     .controller('LogsSearchController', 
     ['$scope', 'appModuleBase',
 function ($scope, appModuleBase) {

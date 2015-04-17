@@ -2,61 +2,61 @@
 <html ng-controller="ApplicationController" class="application-auth waiting-for-angular">
     <head>
         <title ng-bind="pageTitle.title()"></title>
-        <link rel='stylesheet' href='/pl/agrinaut/static/stylesheets/bootstrap.min.css' />        
-        <link rel='stylesheet' href='/pl/agrinaut/static/stylesheets/select2.css' />
-        <link rel='stylesheet' href='/pl/agrinaut/static/stylesheets/style.css' />
+        <link rel='stylesheet' href='/pl/teranaut/static/stylesheets/bootstrap.min.css' />        
+        <link rel='stylesheet' href='/pl/teranaut/static/stylesheets/select2.css' />
+        <link rel='stylesheet' href='/pl/teranaut/static/stylesheets/style.css' />
         
-        <link rel='stylesheet' href='/pl/agrilogs/static/stylesheets/style.css' />
+        <link rel='stylesheet' href='/pl/logscope/static/stylesheets/style.css' />
         
-        <link rel="icon" type="image/png" href="/pl/agrinaut/static/images/favicon.png" />
+        <link rel="icon" type="image/png" href="/pl/teranaut/static/images/favicon.png" />
         
-        <script src="/pl/agrinaut/static/lib/jquery.min.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-route.js"></script>
+        <script src="/pl/teranaut/static/lib/jquery.min.js"></script>
+        <script src="/pl/teranaut/static/lib/angular.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-route.js"></script>
 
-        <script src="/pl/agrinaut/static/lib/primus.js"></script>        
+        <script src="/pl/teranaut/static/lib/primus.js"></script>        
 
-        <script src="/pl/agrinaut/static/lib/angular/angular-resource.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-cookies.min.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-cache-2.3.3.min.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/ui-bootstrap-tpls-0.6.0.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/moment.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/truncate.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-resource.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-cookies.min.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-cache-2.3.3.min.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/ui-bootstrap-tpls-0.6.0.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/moment.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/truncate.js"></script>
         
-        <script src="/pl/agrinaut/static/lib/angular/http-auth-interceptor.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/http-auth-interceptor.js"></script>
         
-        <script src="/pl/agrinaut/static/lib/angular/select2.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-select2.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-base64.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/angular-sanitize.js"></script>
-        <script src="/pl/agrinaut/static/lib/angular/ng-csv.min.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/select2.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-select2.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-base64.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/angular-sanitize.js"></script>
+        <script src="/pl/teranaut/static/lib/angular/ng-csv.min.js"></script>
         
         <!--script src="/dist/webui_service_lib.js"></script-->
         <!-- For some reason this module won't work if included in lib-->
         
         <!--script src="/dist/webui_service.min.js"></script-->
         
-        <script src="/pl/agrilogs/static/modules/app.js"></script>
-        <script src="/pl/agrilogs/static/modules/util/module.js"></script>
+        <script src="/pl/logscope/static/modules/app.js"></script>
+        <script src="/pl/logscope/static/modules/util/module.js"></script>
 
-        <script src="/pl/agrinaut/static/modules/util/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/notices/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/search/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/search/directives.js"></script>
-        <script src="/pl/agrinaut/static/modules/account/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/data/mongodb/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/data/elasticsearch/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/admin/users/module.js"></script>
-        <script src="/pl/agrinaut/static/modules/admin/nodes/module.js"></script>
+        <script src="/pl/teranaut/static/modules/util/module.js"></script>
+        <script src="/pl/teranaut/static/modules/notices/module.js"></script>
+        <script src="/pl/teranaut/static/modules/search/module.js"></script>
+        <script src="/pl/teranaut/static/modules/search/directives.js"></script>
+        <script src="/pl/teranaut/static/modules/account/module.js"></script>
+        <script src="/pl/teranaut/static/modules/data/mongodb/module.js"></script>
+        <script src="/pl/teranaut/static/modules/data/elasticsearch/module.js"></script>
+        <script src="/pl/teranaut/static/modules/admin/users/module.js"></script>
+        <script src="/pl/teranaut/static/modules/admin/nodes/module.js"></script>
         
-        <script src="/pl/agrinaut/static/modules/search/controllers.js"></script>
-        <script src="/pl/agrinaut/static/modules/account/controllers.js"></script>        
-        <script src="/pl/agrinaut/static/modules/admin/users/controllers.js"></script>        
-        <script src="/pl/agrinaut/static/modules/admin/nodes/controllers.js"></script>        
+        <script src="/pl/teranaut/static/modules/search/controllers.js"></script>
+        <script src="/pl/teranaut/static/modules/account/controllers.js"></script>        
+        <script src="/pl/teranaut/static/modules/admin/users/controllers.js"></script>        
+        <script src="/pl/teranaut/static/modules/admin/nodes/controllers.js"></script>        
         
-        <script src="/pl/agrilogs/static/modules/logs/module.js"></script>
+        <script src="/pl/logscope/static/modules/logs/module.js"></script>
         
-        <base href="/pl/agrilogs/">
+        <base href="/pl/logscope/">
     </head>
     
     <body>
@@ -83,7 +83,7 @@
                         <span class="icon-bar"></span><span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a> 
-                    <a href="index" class="brand"><img src="/pl/agrilogs/static/images/logo.png"></a>    
+                    <a href="index" class="brand"><img src="/pl/logscope/static/images/logo.png"></a>    
                     <!--ng-click="$event.preventDefault()"-->
                     <nav class="{{active}}"  ng-hide="! hideLogin" >
                         <ul class="nav">
