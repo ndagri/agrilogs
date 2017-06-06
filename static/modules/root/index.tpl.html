@@ -1,11 +1,5 @@
 <div class="content-area">
-    <h3>Collections</h3>
-    
-    <div>
-        <ul class="nav">
-            <li class="divider-vertical" ng-class="{ active: isActive('/search/logs/') }">
-                <a href="search/logs" class="logs" ng-click="active='logs'" tooltip="On the Left!">Logs</a>
-            </li>            
-        </ul>
-    </div>    
+    <div ng-hide="hideLogin">
+      <br /><a href="/pl/logscope/account/login" class="logs">Login</a>
+    </div>
 </div>

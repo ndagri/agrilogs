@@ -34,8 +34,23 @@ var api = {
             res.header("Pragma", "no-cache");
             res.header("X-Frame-Options", "Deny");
 
-            res.sendfile('index.html', {root: path + '/static'});
+            // private version if logged in, otherwise public version
+            if (req.user) {
+                res.sendfile('index.html', {root: path + '/pstatic'});
+            } else {
+                res.sendfile('index.html', {root: path + '/static'});
+            }
         };
+
+        // return 404s for unauthenticated requests to /pstatic/* content
+        app.get(url_base + '/pstatic/*', function(req, res) {
+            if (req.user) {
+                res.sendfile(req.url.replace(url_base + '/pstatic/', ""), {root: path + '/pstatic'});
+            } else {
+                res.status(404);
+                res.send('Not found');
+            }
+        });
 
         app.get(url_base, function(req, res) {
             res.redirect(url_base + '/_'); // redirecting to a path handled by /* path below
