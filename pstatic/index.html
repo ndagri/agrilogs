@@ -36,8 +36,8 @@
         
         <!--script src="/dist/webui_service.min.js"></script-->
         
-        <script src="/pl/logscope/static/modules/app.js"></script>
-        <script src="/pl/logscope/static/modules/util/module.js"></script>
+        <script src="/pl/logscope/pstatic/modules/app.js"></script>
+        <script src="/pl/logscope/pstatic/modules/util/module.js"></script>
 
         <script src="/pl/teranaut/static/modules/util/module.js"></script>
         <script src="/pl/teranaut/static/modules/notices/module.js"></script>
@@ -54,7 +54,7 @@
         <script src="/pl/teranaut/static/modules/admin/users/controllers.js"></script>        
         <script src="/pl/teranaut/static/modules/admin/nodes/controllers.js"></script>        
         
-        <script src="/pl/logscope/static/modules/logs/module.js"></script>
+        <script src="/pl/logscope/pstatic/modules/logs/module.js"></script>
         
         <base href="/pl/logscope/">
     </head>
@@ -84,6 +84,36 @@
                         <span class="icon-bar"></span>
                     </a> 
                     <a href="index" class="brand"><img src="/pl/logscope/static/images/logo.png"></a>    
+                    <!--ng-click="$event.preventDefault()"-->
+                    <nav class="{{active}}"  ng-hide="! hideLogin" >
+                        <ul class="nav">
+                            <li class="divider-vertical" ng-show="activeUser.role !== 'domains-user'" ng-class="{ active: isActive('/search/logs/') }">
+                                <a href="search/logs" class="logs" ng-click="active='logs'">Logs</a>
+                            </li>
+                                                       
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li class="dropdown divider-vertical">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span>Tools</span>
+                                    
+                                    <span class="caret caret-menu"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">                                    
+                                    <li class="nav-header" ng-show="activeUser.role == 'admin'">Site Admin</li>
+                                    <li ng-show="activeUser.role == 'admin'"><a tabindex="-1" href="admin/users">User Manager</a></li>
+                                    <li ng-show="activeUser.role == 'admin'"><a tabindex="-1" href="admin/nodes">Node Manager</a></li>
+                                    
+                                
+                                    <li class="nav-header">User Admin</li>
+                                    <li><a tabindex="-1" href="user/account">Edit Account</a></li>
+                                    
+                                    <li class="nav-header">Logout</li>
+                                    <li><a href="account/logout" class="search" ng-click="active='logout'">Logout: {{ activeUser.username }}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>  
             </div>
                                 

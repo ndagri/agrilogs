@@ -3,7 +3,7 @@
 var config = angular.module('app.config', [])
     .constant('appTitle', 'Log Scope')    
     
-    .constant('appModuleBase', '/pl/logscope/static/modules/')    
+    .constant('appModuleBase', '/pl/logscope/pstatic/modules/')    
 
     .constant('teranautModuleBase', '/pl/teranaut/static/modules/')
 
@@ -23,9 +23,15 @@ var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
             $routeProvider.
                 when('/', {
                     templateUrl: appModuleBase + '/root/index.tpl.html',
-                    controller: 'WindowReloadController'
+                    controller: 'StubController'
                     //,reloadOnSearch: false
                 }).                
+                when('/search/logs/', {
+                    templateUrl: teranautModuleBase + '/search/grid.tpl.html',
+                    controller: 'LogsSearchController'
+                    //,
+                    //reloadOnSearch: false
+                }).                  
                 otherwise({
                     redirectTo: '/'
                 });
