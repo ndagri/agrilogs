@@ -63,8 +63,7 @@ var api = {
                 sort_enabled: true,
                 sort_default: false,
                 sort_dates_only: false,
-                date_range: '@timestamp',
-                require_query: false
+                date_range: '@timestamp'
             };
             search.luceneQuery(req, res, 'logstash-*', queryConfig);
         });
