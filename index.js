@@ -69,9 +69,7 @@ var api = {
         });
     },
 
-    post: function() {
-
-    }
+    post: function() {}
 };
 
 module.exports = api;

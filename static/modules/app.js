@@ -1,22 +1,17 @@
 'use strict';
 
 var config = angular.module('app.config', [])
-    .constant('appTitle', 'Log Scope')    
-    
-    .constant('appModuleBase', '/pl/logscope/static/modules/')    
-
+    .constant('appTitle', 'Log Scope')
+    .constant('appModuleBase', '/pl/logscope/static/modules/')
     .constant('teranautModuleBase', '/pl/teranaut/static/modules/')
-
-    .constant('teranautAdminUserRoles', ['admin', 'user', 'domains-user'])
+    .constant('teranautAdminUserRoles', ['user', 'admin', 'domains-user']);
 
 // Declare app level module which depends on filters, and services
 var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
         'teranaut.util', 'teranaut.account', 'teranaut.search', 'teranaut.admin.users', 'teranaut.admin.nodes',
         'logscope.logs', 'app.config'
         ])
-
-    .value('version', '0.1') // Application version 
-    
+    .value('version', '0.1') // Application version
     .config(['$routeProvider', '$locationProvider', '$httpProvider', 'appModuleBase', 'teranautModuleBase',
         function($routeProvider, $locationProvider, $httpProvider, appModuleBase, teranautModuleBase) {        
             
@@ -46,10 +41,8 @@ var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
             $rootScope.$on('event:auth-loginConfirmed', function() {  
                 accountData.getActiveUser().then(function(user) {    
                     $rootScope.activeUser = user;
-
                     $rootScope.hideLogin = true;
-                                       
-                    console.log("Loading node cache.")                    
+                    console.log("Loading node cache.")    ;
                     adminNodeData.loadNodeCache(user.client_id);
                 })              
             });
@@ -57,11 +50,9 @@ var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
             // Generated when the user logs out of the app. Need to clear any user specific state here.
             $rootScope.$on('event:auth-loginRequired', function() {     
                 $rootScope.activeUser = null;
-                    
                 $rootScope.hideLogin = false;
-                               
                 searchContextService.reset();
-            })
+            });
 
             $angularCacheFactory('defaultCache', {
                 maxAge: 900000, // Items added to this cache expire after 15 minutes.
@@ -74,14 +65,11 @@ var app = angular.module('theApp', ['ngRoute', 'ngResource', 'ngCookies',
     ])
 
     .controller('ApplicationController', ['$scope', '$location', 'pageTitle',
-        function ($scope, $location, pageTitle) {    
-        
+        function ($scope, $location, pageTitle) {
             $scope.isActive = function (viewLocation) {
                 return (viewLocation === $location.path());        
             };
-
             $scope.appLoadingComplete = true;
-
             $scope.pageTitle = pageTitle;
         }
     ]);    

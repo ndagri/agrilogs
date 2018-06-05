@@ -37,7 +37,7 @@ function ($scope, appModuleBase) {
         history: 90,
         fields: fields,
         gridView: appModuleBase + '/logs/search-results.tpl.html',
-        searchView: appModuleBase + '/logs/search-controls.tpl.html',
+        searchView: appModuleBase + '/logs/search-controls.tpl.html'
     };
     
 }])
@@ -46,5 +46,5 @@ function ($scope, appModuleBase) {
         replace: true,       
         templateUrl: appModuleBase + '/logs/pivot-menu.tpl.html'
     }
-}])
+}]);
 
